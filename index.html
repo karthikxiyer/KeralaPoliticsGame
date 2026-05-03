@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kerala Konishtt — Political Survival Game</title>
+    <meta name="description" content="Choose your party. Dodge scandals. Survive Kerala politics!">
+    <meta property="og:title" content="Kerala Konishtt — Political Survival Game">
+    <meta property="og:description" content="Choose UDF, LDF, or NDA. Dodge your party's scandals. Survive!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- INTRO SCREEN -->
+        <div id="intro-screen" class="screen active">
+            <div class="intro-content">
+                <img src="assets/logo.png" alt="Kerala Konishtt" class="logo" id="game-logo">
+                <div class="tagline">
+                    <p>Choose your party. Dodge scandals.</p>
+                    <p>Dodge the chaos.</p>
+                    <p class="highlight">Survive as long as you can.</p>
+                </div>
+                <button id="start-btn" class="btn btn-primary">CHOOSE YOUR SIDE</button>
+                <button id="mute-btn" class="btn btn-mute">🔊 SOUND ON</button>
+            </div>
+            <div class="version">v2.0</div>
+        </div>
+
+        <!-- PARTY SELECTION SCREEN -->
+        <div id="party-screen" class="screen">
+            <div class="party-content">
+                <h2 class="party-title">PICK YOUR COALITION</h2>
+                <p class="party-subtitle">Whose stooge are you?</p>
+                <div class="party-cards">
+                    <button class="party-card party-udf" data-party="udf">
+                        <div class="party-symbol">✋</div>
+                        <div class="party-name">UDF</div>
+                        <div class="party-full">United Democratic Front</div>
+                        <div class="party-tagline">"Congress vannam, kaanam!"</div>
+                    </button>
+                    <button class="party-card party-ldf" data-party="ldf">
+                        <div class="party-symbol">☭</div>
+                        <div class="party-name">LDF</div>
+                        <div class="party-full">Left Democratic Front</div>
+                        <div class="party-tagline">"Lal salaam, comrade!"</div>
+                    </button>
+                    <button class="party-card party-nda" data-party="nda">
+                        <div class="party-symbol">🪷</div>
+                        <div class="party-name">NDA</div>
+                        <div class="party-full">National Democratic Alliance</div>
+                        <div class="party-tagline">"Sabka saath, aarude vote?"</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="game-screen" class="screen">
+            <canvas id="game-canvas"></canvas>
+            <div id="hud">
+                <div id="hud-left">
+                    <div id="hud-timer">0.00s</div>
+                    <div id="hud-party-badge"></div>
+                </div>
+                <div id="hud-center">
+                    <div id="hud-best">BEST: 0.00s</div>
+                    <div id="hud-powerup" class="hidden"></div>
+                </div>
+                <div id="hud-hearts">❤️❤️❤️</div>
+            </div>
+            <div id="discovery-popup" class="discovery hidden">
+                <div class="discovery-icon"></div>
+                <div class="discovery-text"></div>
+            </div>
+            <!-- Tap zones for mobile -->
+            <div id="tap-left" class="tap-zone"></div>
+            <div id="tap-right" class="tap-zone"></div>
+        </div>
+
+        <!-- GAME OVER SCREEN -->
+        <div id="gameover-screen" class="screen">
+            <div class="gameover-content">
+                <img src="assets/gameover.png" alt="Game Over" class="gameover-img">
+                <div class="score-box">
+                    <p class="score-time" id="final-time">0.00s</p>
+                    <p class="score-percentile" id="final-percentile">Better than <span class="accent">0%</span> of Kerala</p>
+                    <p class="score-party" id="final-party"></p>
+                </div>
+                <div class="death-box" id="death-box">
+                    <h3 id="death-title"></h3>
+                    <p class="death-quote" id="death-quote"></p>
+                    <p class="death-story" id="death-story"></p>
+                </div>
+                <div class="gameover-buttons">
+                    <button id="share-btn" class="btn btn-secondary">SHARE SCORE</button>
+                    <button id="again-btn" class="btn btn-primary">AGAIN</button>
+                </div>
+                <button id="switch-party-btn" class="btn btn-mute">🔄 SWITCH PARTY</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
