@@ -379,14 +379,11 @@ function drawObs() {
       ctx.font = OBS_SIZE * 0.65 + 'px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(o.type.emoji, x + OBS_SIZE / 2, y + OBS_SIZE / 2)
     }
-    // Label with dark background for legibility (supports multi-line via \n)
+    // Label (supports multi-line via \n)
     ctx.font = 'bold 10px "JetBrains Mono",monospace'; ctx.textAlign = 'center';
     const lines = o.type.label.split('\n'), lx = x + OBS_SIZE / 2;
     const lineH = 12, totalH = lines.length * lineH;
-    const maxW = Math.max(...lines.map(l => ctx.measureText(l).width));
     const ly0 = y + OBS_SIZE + 8;
-    ctx.fillStyle = 'rgba(0,20,22,0.85)';
-    ctx.beginPath(); ctx.roundRect(lx - maxW / 2 - 5, ly0 - 2, maxW + 10, totalH + 4, 3); ctx.fill();
     ctx.fillStyle = o.type.color;
     lines.forEach((line, i) => { ctx.fillText(line, lx, ly0 + 6 + i * lineH) });
   });
