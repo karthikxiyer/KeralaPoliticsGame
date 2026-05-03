@@ -30,9 +30,6 @@ if (!supabase) {
       timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
       ip_address TEXT,
       user_agent TEXT,
-      location TEXT,
-      latitude REAL,
-      longitude REAL,
       score REAL,
       mode TEXT,
       duration_seconds REAL,
@@ -47,10 +44,7 @@ app.post('/api/track', async (req, res) => {
     score,
     duration,
     mode,
-    party,
-    latitude,
-    longitude,
-    location
+    party
   } = req.body;
 
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -63,9 +57,6 @@ app.post('/api/track', async (req, res) => {
       .insert([{
         ip_address: ip,
         user_agent: userAgent,
-        location: location || null,
-        latitude: latitude || null,
-        longitude: longitude || null,
         score: parseFloat(score),
         mode: mode,
         duration_seconds: parseFloat(duration),
@@ -81,12 +72,12 @@ app.post('/api/track', async (req, res) => {
   } else {
     // Use local SQLite
     const stmt = db.prepare(`
-      INSERT INTO gameplay_sessions 
-      (ip_address, user_agent, location, latitude, longitude, score, mode, duration_seconds, party_selected)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO gameplay_sessions
+      (ip_address, user_agent, score, mode, duration_seconds, party_selected)
+      VALUES (?, ?, ?, ?, ?, ?)
     `);
 
-    stmt.run([ip, userAgent, location || null, latitude || null, longitude || null, score, mode, duration, party], (err) => {
+    stmt.run([ip, userAgent, score, mode, duration, party], (err) => {
       if (err) {
         console.error('Database error:', err);
         res.status(500).json({ error: 'Failed to record gameplay' });

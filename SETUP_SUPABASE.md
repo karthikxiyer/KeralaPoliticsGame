@@ -28,9 +28,6 @@ CREATE TABLE gameplay_sessions (
   created_at TIMESTAMP DEFAULT NOW(),
   ip_address TEXT,
   user_agent TEXT,
-  location TEXT,
-  latitude FLOAT,
-  longitude FLOAT,
   score FLOAT,
   mode TEXT,
   duration_seconds FLOAT,
@@ -79,7 +76,7 @@ SUPABASE_KEY=your_anon_key_here
 
 ### In Supabase Dashboard:
 - Go to Table Editor → gameplay_sessions
-- See all gameplay sessions with IP, location, score, party, etc.
+- See all gameplay sessions with IP, score, duration, party, timestamp
 
 ### Via API:
 ```bash
@@ -89,10 +86,20 @@ curl https://your-render-app.onrender.com/api/stats
 ## Notes
 
 - **Free tier**: Supabase free tier includes 500MB database, plenty for this
-- **IP Address**: Automatically captured from server
-- **Location**: Requires browser permission (user sees a popup)
-- **Geolocation**: Works in HTTPS (Render provides HTTPS)
+- **IP Address**: Automatically captured from server (no user prompt)
+- **User Agent**: Browser/device info captured automatically
+- **No prompts**: Zero browser permission requests - silent tracking
 - **Fallback**: If Supabase isn't configured, it uses local SQLite automatically
+
+## Tracked Data
+
+Per gameplay session:
+- Timestamp (when game was played)
+- Player IP address
+- User agent (browser/device info)
+- Score (duration in seconds)
+- Game mode
+- Party selected (UDF/LDF/NDA)
 
 ## Troubleshooting
 
