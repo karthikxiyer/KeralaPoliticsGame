@@ -1,6 +1,6 @@
 /* Kerala Konishtt v2.0 — Game Engine */
-const LANE_COUNT=3,PLAYER_SIZE=48,OBS_SIZE=52,INIT_SPEED=3,SPEED_INC=0.15,SPEED_INT=5000,
-MAX_SPEED=12,SPAWN_INIT=1200,SPAWN_MIN=400,SPAWN_DEC=30,INVINC_DUR=1500,MAX_LIVES=3,
+const LANE_COUNT=3,PLAYER_SIZE=48,OBS_SIZE=52,INIT_SPEED=6,SPEED_INC=0.30,SPEED_INT=5000,
+MAX_SPEED=24,SPAWN_INIT=600,SPAWN_MIN=200,SPAWN_DEC=30,INVINC_DUR=1500,MAX_LIVES=3,
 STRIPE_H=40,STRIPE_G=30,POWERUP_CHANCE=0.15,POWERUP_SIZE=40;
 
 // Sprite image loading
@@ -9,7 +9,7 @@ const SPRITE_SHEETS={
 'obs_udf':{src:'assets/obs_udf.png',cols:3,rows:3,count:5,ids:['_sheet_mankootathil','punarjani','cm_fight','decade_opp','musical_chairs']},
 'obs_ldf':{src:'assets/obs_ldf.png',cols:3,rows:3,count:5,ids:['_sheet_gold_scam','_sheet_kannur_fund','_sheet_health_collapse','_sheet_youth_exodus','_sheet_no_messi']},
 'obs_nda':{src:'assets/obs_nda.png',cols:3,rows:2,count:5,ids:['_sheet_suresh_gopi','_sheet_vote_bribe','_sheet_vote_chori','no_funds','_sheet_modiji']},
-'obs_common':{src:'assets/obs_common.png',cols:3,rows:3,count:4,ids:['bteam','_unused1','_unused2','powerup_shield','powerup_extralife','powerup_slowmo']},
+'obs_common':{src:'assets/obs_common.png',cols:3,rows:3,count:4,ids:['_sheet_bteam','_unused1','_unused2','powerup_shield','powerup_extralife','powerup_slowmo']},
 'chars':{src:'assets/chars.png',cols:2,rows:2,count:4,ids:['modiji_face','suresh_face','modiji_face2','mankootathil_face']},
 'symbols':{src:'assets/symbols.png',cols:2,rows:1,count:2,ids:['no_funds_symbol','bteam_symbol']},
 'ldf_messi_youth':{src:'assets/ldf_messi_youth.png',cols:2,rows:1,count:2,ids:['messi_face','youth_flight']},
@@ -158,12 +158,7 @@ const p=S.partyData;
 S.activeObs=[...p.obstacles,...COMMON_OBSTACLES];
 }
 
-// Get rival scandals for powerup labels
-function getRivalScandal(){
-const others=Object.keys(PARTIES).filter(k=>k!==S.party);
-const rp=PARTIES[others[Math.floor(Math.random()*others.length)]];
-return rp.obstacles[Math.floor(Math.random()*rp.obstacles.length)];
-}
+// (Powerups now use generic labels — no rival-scandal references)
 
 // Start game
 function startGame(){
@@ -214,9 +209,8 @@ if(tooClose)return;
 
 // Powerup chance
 if(Math.random()<POWERUP_CHANCE){
-const rival=getRivalScandal();
 const fx=POWERUP_KEYS[Math.floor(Math.random()*POWERUP_KEYS.length)];
-S.powerups.push({lane,y:-POWERUP_SIZE,rival,effect:fx,speed:S.speed*0.7});
+S.powerups.push({lane,y:-POWERUP_SIZE,effect:fx,speed:S.speed*0.7});
 return;}
 
 const type=S.activeObs[Math.floor(Math.random()*S.activeObs.length)];
@@ -374,9 +368,9 @@ if(spr){try{ctx.drawImage(spr,x+2,y+2,POWERUP_SIZE-4,POWERUP_SIZE-4)}catch(e){}}
 else{ctx.font=POWERUP_SIZE*0.55+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
 const icon=p.effect==='shield'?'🛡️':p.effect==='extralife'?'💚':'⏱️';
 ctx.fillText(icon,x+POWERUP_SIZE/2,y+POWERUP_SIZE/2)}
-// Rival label with bg
+// Generic powerup label with bg
 ctx.font='bold 9px "JetBrains Mono",monospace';ctx.textAlign='center';
-const lbl=p.rival.label,lw=ctx.measureText(lbl).width;
+const lbl=POWERUP_EFFECTS[p.effect].label,lw=ctx.measureText(lbl).width;
 const lx=x+POWERUP_SIZE/2,ly=y+POWERUP_SIZE+10;
 ctx.fillStyle='rgba(0,20,22,0.85)';
 ctx.beginPath();ctx.roundRect(lx-lw/2-3,ly-6,lw+6,12,3);ctx.fill();
