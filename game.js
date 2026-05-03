@@ -295,7 +295,42 @@ function spawnParts(x, y, c, n) {
 function gameOver(type) {
   const el = performance.now() - S.startTime; S.score = el; S.goType = type; stopMusic();
   if (el > S.bestTime) { S.bestTime = el; localStorage.setItem('kk_best', S.bestTime.toString()) }
+  // Track gameplay
+  trackGameplay(el);
   playGO(); setTimeout(() => showGO(el, type), 500);
+}
+
+function trackGameplay(duration) {
+  // Get location if available
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        sendTrackingData(duration, position.coords.latitude, position.coords.longitude);
+      },
+      () => {
+        sendTrackingData(duration);
+      }
+    );
+  } else {
+    sendTrackingData(duration);
+  }
+}
+
+function sendTrackingData(duration, latitude, longitude) {
+  const trackingData = {
+    score: (duration / 1000).toFixed(2),
+    duration: (duration / 1000).toFixed(2),
+    mode: 'survival',
+    party: S.party,
+    latitude: latitude || null,
+    longitude: longitude || null
+  };
+
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(trackingData)
+  }).catch(err => console.log('Tracking error:', err));
 }
 
 function showGO(ms, type) {

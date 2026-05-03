@@ -4,3 +4,6 @@ assets_1/
 implementation_plan.md
 task.md
 walkthrough.md
+gameplay.db
+node_modules/
+.env

@@ -1,11 +1,10 @@
 services:
   - type: web
     name: kerala-konishtt
-    env: static
-    staticPublishPath: .
-    buildCommand: ""
+    env: node
+    buildCommand: "npm install"
+    startCommand: "npm start"
     pullRequestPreviewsEnabled: true
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+    envVars:
+      - key: NODE_ENV
+        value: production
