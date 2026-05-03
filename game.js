@@ -298,9 +298,10 @@ function gameOver(type) {
 
 function showGO(ms, type) {
   const s = (ms / 1000).toFixed(2), pct = getPct(ms / 1000), pd = S.partyData;
+  const roleMap = { 'udf': 'Ani', 'ldf': 'Sakhavu', 'nda': 'Karyakarta' };
   $('final-time').textContent = s + 's';
   $('final-percentile').innerHTML = `Better than <span class="accent">${pct}%</span> of Kerala`;
-  $('final-party').textContent = pd.symbol + ' Playing as ' + pd.name + ' stooge';
+  $('final-party').textContent = pd.symbol + ' Playing as a ' + pd.name + ' ' + roleMap[S.party];
   $('final-party').style.color = pd.color;
   $('death-title').textContent = type.title;
   $('death-quote').textContent = type.quote;
@@ -481,7 +482,8 @@ function loop(ts) {
 // Share
 function shareScore() {
   const s = (S.score / 1000).toFixed(2), pct = getPct(S.score / 1000), pd = S.partyData;
-  const txt = `I survived Kerala politics as a ${pd.name} stooge for ${s}s! Better than ${pct}% of Kerala. Play Kerala Konishtt!`;
+  const roleMap = { 'udf': 'Ani', 'ldf': 'Sakhavu', 'nda': 'Karyakarta' };
+  const txt = `I survived Kerala politics as a ${pd.name} ${roleMap[S.party]} for ${s}s! Better than ${pct}% of Kerala. Play Kerala Konishtt!`;
   if (navigator.share) { navigator.share({ title: 'Kerala Konishtt', text: txt }).catch(() => copyTxt(txt)) }
   else copyTxt(txt);
 }
