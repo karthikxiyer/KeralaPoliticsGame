@@ -8,7 +8,7 @@ const PARTIES = {
         name: 'UDF',
         fullName: 'United Democratic Front',
         symbol: '✋',
-        tagline: 'Congress vannam, kaanam!',
+        tagline: 'Congress Nayikkumo?',
         color: '#00cc66',
         colorDark: '#003d1f',
         roadTint: 'rgba(0,107,63,0.15)',
@@ -32,6 +32,12 @@ const PARTIES = {
                 title: 'CM Vadamvali crushed you.',
                 quote: '"Everyone wants the chair. Who will get it?"',
                 story: 'Three leaders, one CM post. The only thing UDF fights harder than LDF is itself.'
+            },
+            {
+                id: 'rahul_gandhi', emoji: '📋', label: 'Delhi Diktats', color: '#1E90FF',
+                title: 'Delhi Diktats silenced you.',
+                quote: '"Orders from Delhi. No questions, no answers."',
+                story: 'The high command in Delhi makes the decisions. Kerala party workers just smile and nod. Independent thinking? Not on the menu.'
             }
         ]
     },
@@ -40,7 +46,7 @@ const PARTIES = {
         name: 'LDF',
         fullName: 'Left Democratic Front',
         symbol: '☭',
-        tagline: 'Lal salaam, comrade!',
+        tagline: 'Lal salaam, Sakhave!',
         color: '#ff4444',
         colorDark: '#3d0000',
         roadTint: 'rgba(204,0,0,0.12)',
@@ -84,7 +90,7 @@ const PARTIES = {
         name: 'NDA',
         fullName: 'National Democratic Alliance',
         symbol: '🪷',
-        tagline: 'Sabka saath, aarude vote?',
+        tagline: 'Sabka saath, Evide vote?',
         color: '#ff9933',
         colorDark: '#3d2200',
         roadTint: 'rgba(255,102,0,0.12)',

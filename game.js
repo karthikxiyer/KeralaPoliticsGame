@@ -18,7 +18,7 @@ const SPRITE_SHEETS = {
 // Individual obstacle face images (pixel-art, transparent bg)
 const OBS_FACE_IDS = ['modiji', 'suresh_gopi', 'mankootathil', 'punarjani', 'cm_fight',
   'decade_opp', 'musical_chairs', 'gold_scam', 'kannur_fund', 'health_collapse',
-  'youth_exodus', 'no_messi', 'vote_bribe', 'vote_chori', 'no_funds', 'bteam'];
+  'youth_exodus', 'no_messi', 'vote_bribe', 'vote_chori', 'no_funds', 'bteam', 'rahul_gandhi'];
 let spritesLoaded = 0, spritesTotal = Object.keys(SPRITE_SHEETS).length + OBS_FACE_IDS.length;
 function loadSprites() {
   // Load legacy sprite sheets (powerups still use these)
@@ -301,7 +301,7 @@ function showGO(ms, type) {
   const roleMap = { 'udf': 'Ani', 'ldf': 'Sakhavu', 'nda': 'Karyakarta' };
   $('final-time').textContent = s + 's';
   $('final-percentile').innerHTML = `Better than <span class="accent">${pct}%</span> of Kerala`;
-  $('final-party').textContent = pd.symbol + ' Playing as a ' + pd.name + ' ' + roleMap[S.party];
+  $('final-party').textContent = pd.symbol + ' Playing as ' + pd.name + ' ' + roleMap[S.party];
   $('final-party').style.color = pd.color;
   $('death-title').textContent = type.title;
   $('death-quote').textContent = type.quote;
