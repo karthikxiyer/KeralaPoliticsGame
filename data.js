@@ -17,33 +17,21 @@ const PARTIES = {
         obstacles: [
             {
                 id: 'mankootathil', emoji: '😏', label: 'Who Cares', color: '#FF6B6B',
-                title: '"Who Cares" got you.',
+                title: '"Who Cares?". The public does',
                 quote: '"Three complaints, one bail. Who cares? Not Rahul."',
                 story: 'Rahul Mamkootathil, MLA from Palakkad — arrested, jailed, bailed. His response? A smirk and a shrug. Who cares, indeed.'
             },
             {
                 id: 'punarjani', emoji: '💊', label: 'Punarjani Scam', color: '#E74C3C',
                 title: 'Punarjani Scam caught you.',
-                quote: '"The cure was worse than the disease. Much worse."',
-                story: 'Alternative medicine turned alternative fraud. Patients lost money, health, and hope — all under one roof.'
+                quote: '"Kuruvi Kuruvi Veedevide?"',
+                story: 'Nobody realized "Punarjani" meant the money gets a second life in someone else\'s bank account'
             },
             {
-                id: 'cm_fight', emoji: '🤼', label: 'CM Infighting', color: '#F39C12',
-                title: 'CM Post Infighting crushed you.',
-                quote: '"Everyone wants the chair. Nobody wants to govern."',
-                story: 'Five leaders, one CM post. The only thing UDF fights harder than LDF is itself.'
-            },
-            {
-                id: 'decade_opp', emoji: '⏳', label: 'Decade Lost', color: '#9B59B6',
-                title: 'A decade in opposition caught up.',
-                quote: '"10 years watching. Still not ready."',
-                story: 'Opposition is comfortable. Too comfortable. Manifestos gather dust while leaders gather followers on Instagram.'
-            },
-            {
-                id: 'musical_chairs', emoji: '🪑', label: 'Musical Chairs', color: '#1ABC9C',
-                title: 'Musical Chairs ended for you.',
-                quote: '"One seat, five claimants. UDF arithmetic at its finest."',
-                story: 'Seat-sharing talks lasted longer than the actual campaign. The coalition math never adds up.'
+                id: 'cm_fight', emoji: '🤼', label: 'CM Vadamvali', color: '#F39C12',
+                title: 'CM Vadamvali crushed you.',
+                quote: '"Everyone wants the chair. Who will get it?"',
+                story: 'Three leaders, one CM post. The only thing UDF fights harder than LDF is itself.'
             }
         ]
     },
@@ -60,33 +48,33 @@ const PARTIES = {
         shirtColor: '#CC0000',
         obstacles: [
             {
-                id: 'gold_scam', emoji: '🥷', label: 'Swamiye Swarnam\nAyyappa', color: '#FFD700',
-                title: 'Swamiye Swarnam Ayyappa got you.',
+                id: 'gold_scam', emoji: '🥷', label: 'Swamiye SWARNAM\nAyyappa', color: '#FFD700',
+                title: 'Swamiye SWARNAM Ayyappa got you.',
                 quote: '"Swami Ayyappa\'s gold vanished. So did accountability."',
                 story: 'A man in mundu ran off with the temple gold. Sabarimala\'s holiest treasure disappeared under everyone\'s watch.'
             },
             {
                 id: 'kannur_fund', emoji: '💸', label: 'Kannur Fund\nEmbezzlement', color: '#E74C3C',
                 title: 'Kannur Fund Embezzlement got you.',
-                quote: '"Party funds flow north. Always north."',
-                story: 'CPIM funds meant for Kerala development somehow always find their way to Kannur. Geography, comrade.'
+                quote: '"Party funds create Vimathar, not cadre"',
+                story: 'In Kannur, "financial transparency" just means we can all clearly see that the money is gone. It\s impressive how they managed to redistribute the wealth—mostly to themselves.'
             },
             {
                 id: 'health_collapse', emoji: '🏥', label: 'Health Infra\nCollapse', color: '#3498DB',
                 title: 'Health Infra Collapse crushed you.',
-                quote: '"Free healthcare! (Terms: hospitals may not exist)"',
+                quote: '"Quality healthcare! (Terms: Public health may be in the casualty ward)"',
                 story: 'Persistent lapses in public health infrastructure. Hospitals crumble while press conferences flourish.'
             },
             {
                 id: 'youth_exodus', emoji: '✈️', label: 'Youth Exodus', color: '#2ECC71',
                 title: 'Youth Exodus swept you away.',
-                quote: '"Dubai, Canada, US \u2014 anywhere but here. Thanks, Kerala."',
-                story: 'Heightened youth migration. Flights to Dubai, Canada, and the US are always full. Kerala produces graduates, the world employs them.'
+                quote: '"Dubai, Canada, UK \u2014 anywhere but here. Thanks, Kerala."',
+                story: 'Heightened youth migration. Flights to Dubai, Canada, and the UK are always full. Kerala produces graduates, the world employs them.'
             },
             {
-                id: 'no_messi', emoji: '⚽', label: 'Messi Skips\nKerala', color: '#9B59B6',
-                title: 'Messi Skips Kerala got you.',
-                quote: '"Couldn\'t even bring Messi. What hope for governance?"',
+                id: 'no_messi', emoji: '⚽', label: 'Messi Vannilla', color: '#9B59B6',
+                title: 'Messi dribbled past you.',
+                quote: '"Messi Varum. Messi Varum. Messi ivide mathram vannilla"',
                 story: 'The government promised Messi in Kerala. Messi smiled and went elsewhere. The only goal scored was an own goal.'
             }
         ]
@@ -107,11 +95,11 @@ const PARTIES = {
                 id: 'suresh_gopi', emoji: '😎', label: 'Enikk Thrissur\nVenam', color: '#E74C3C',
                 title: 'Enikk Thrissur Venam got you.',
                 quote: '"Enikk Thrissur venam! But Thrissur doesn\'t want you back."',
-                story: 'Suresh Gopi wanted Thrissur. Got Thrissur. Then forgot Thrissur. Star power meets disappearing act.'
+                story: 'Suresh Gopi wanted Thrissur. Got Thrissur. Then forgot everything, and ippo namakk AIIMS illa. Star power meets disappearing act.'
             },
             {
-                id: 'vote_bribe', emoji: '💰', label: 'Bribe Allegations', color: '#FFD700',
-                title: 'Vote Bribing Allegations caught you.',
+                id: 'vote_bribe', emoji: '💰', label: 'Election Bribe\nAllegations', color: '#FFD700',
+                title: 'Election Bribe Allegations caught you.',
                 quote: '"₹500, a sari, and a grocery kit. Democracy delivered!"',
                 story: 'Cash in envelopes, saris in bags, grocery kits at the door — allegations of vote bribing haunt every election cycle.'
             },
@@ -125,7 +113,7 @@ const PARTIES = {
                 id: 'no_funds', emoji: '🚫', label: 'No Fund\nDevolution', color: '#3498DB',
                 title: 'No Fund Devolution starved you.',
                 quote: '"Central funds? Sorry, Kerala isn\'t on the map."',
-                story: 'Lack of devolution of funds to Kerala. The center sends thoughts and prayers. Kerala needed roads and hospitals.'
+                story: 'Lack of devolution of funds to Kerala. The center sends thoughts and prayers. Kerala needed roads and relief.'
             },
             {
                 id: 'modiji', emoji: '🎀', label: 'Modiji Inaugurates', color: '#FF9933',
@@ -147,9 +135,9 @@ const COMMON_OBSTACLES = [
 ];
 
 const POWERUP_EFFECTS = {
-    shield:   { label: '🛡️ SHIELD!', duration: 3000, hudText: '🛡️ SHIELDED', hudColor: '#00ff88' },
-    extralife:{ label: '💚 +1 LIFE!', duration: 0,    hudText: '💚 +1 LIFE',  hudColor: '#ff6699' },
-    slowmo:   { label: '⏱️ SLOW-MO!', duration: 4000, hudText: '⏱️ SLOW-MO',  hudColor: '#66ccff' }
+    shield: { label: '🛡️ SHIELD!', duration: 3000, hudText: '🛡️ SHIELDED', hudColor: '#00ff88' },
+    extralife: { label: '💚 +1 LIFE!', duration: 0, hudText: '💚 +1 LIFE', hudColor: '#ff6699' },
+    slowmo: { label: '⏱️ SLOW-MO!', duration: 4000, hudText: '⏱️ SLOW-MO', hudColor: '#66ccff' }
 };
 
 const POWERUP_KEYS = ['shield', 'extralife', 'slowmo'];
@@ -173,12 +161,12 @@ const MUSIC_NOTES = [
     { f: 247, d: 0.14 }, { f: 277, d: 0.14 }, { f: 294, d: 0.18 },
     { f: 330, d: 0.14 }, { f: 330, d: 0.22 },
     { f: 294, d: 0.14 }, { f: 277, d: 0.14 }, { f: 247, d: 0.14 }, { f: 220, d: 0.28 },
-    { f: 0,   d: 0.12 },
+    { f: 0, d: 0.12 },
     // Re Ga Pa  Dha Pa  Ma Ga Re
     { f: 247, d: 0.14 }, { f: 277, d: 0.14 }, { f: 330, d: 0.18 },
     { f: 370, d: 0.14 }, { f: 330, d: 0.22 },
     { f: 294, d: 0.14 }, { f: 277, d: 0.14 }, { f: 247, d: 0.28 },
-    { f: 0,   d: 0.14 },
+    { f: 0, d: 0.14 },
 
     // ── SECTION B ★★★ THI THI THARA — bar 1 (mid octave) ★★★ ─────────────
     // Pa Pa | Dha — | Pa Pa | Ma ——
@@ -186,40 +174,40 @@ const MUSIC_NOTES = [
     { f: 370, d: 0.32 },
     { f: 330, d: 0.16 }, { f: 330, d: 0.16 },
     { f: 294, d: 0.38 },
-    { f: 0,   d: 0.10 },
+    { f: 0, d: 0.10 },
     // ★★★ THI THI THARA — bar 2 (same phrase, louder feel via repetition) ★★★
     { f: 330, d: 0.16 }, { f: 330, d: 0.16 },
     { f: 370, d: 0.32 },
     { f: 330, d: 0.16 }, { f: 330, d: 0.16 },
     { f: 294, d: 0.38 },
-    { f: 0,   d: 0.10 },
+    { f: 0, d: 0.10 },
 
     // ── SECTION C: "Thaka thimi" bridge (ascending run) ─────────────────
     // Ma Pa Dha  Sa' Ni Dha  Pa Ma
     { f: 294, d: 0.14 }, { f: 330, d: 0.14 }, { f: 370, d: 0.18 },
     { f: 440, d: 0.14 }, { f: 415, d: 0.14 }, { f: 370, d: 0.18 },
     { f: 330, d: 0.22 }, { f: 294, d: 0.32 },
-    { f: 0,   d: 0.12 },
+    { f: 0, d: 0.12 },
 
     // ── SECTION D ★★★ THI THI THARA — HIGH OCTAVE (Sa' Sa' Ni | Sa' Sa' Dha) ★★★
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 415, d: 0.32 },
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 370, d: 0.38 },
-    { f: 0,   d: 0.10 },
+    { f: 0, d: 0.10 },
     // ★★★ Repeat high — the big hook ★★★
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 415, d: 0.32 },
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 370, d: 0.38 },
-    { f: 0,   d: 0.10 },
+    { f: 0, d: 0.10 },
 
     // ── SECTION E: Descending "Thaka thimi" ornament ─────────────────────
     // Sa' Ni Dha  Pa Ma Ga  Re Sa
     { f: 440, d: 0.14 }, { f: 415, d: 0.14 }, { f: 370, d: 0.18 },
     { f: 330, d: 0.14 }, { f: 294, d: 0.14 }, { f: 277, d: 0.14 },
     { f: 247, d: 0.22 }, { f: 220, d: 0.30 },
-    { f: 0,   d: 0.14 },
+    { f: 0, d: 0.14 },
 
     // ── SECTION F ★★★ THI THI THARA — CALL (mid) + RESPONSE (high) ★★★ ───
     // Call: Pa Pa Dha | Pa Pa Ma
@@ -227,18 +215,18 @@ const MUSIC_NOTES = [
     { f: 370, d: 0.32 },
     { f: 330, d: 0.16 }, { f: 330, d: 0.16 },
     { f: 294, d: 0.38 },
-    { f: 0,   d: 0.08 },
+    { f: 0, d: 0.08 },
     // Response: Sa' Sa' Ni | Sa' Sa' Dha (immediate echo, slightly louder)
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 415, d: 0.32 },
     { f: 440, d: 0.16 }, { f: 440, d: 0.16 },
     { f: 370, d: 0.38 },
-    { f: 0,   d: 0.08 },
+    { f: 0, d: 0.08 },
 
     // ── SECTION G: Verse cadence — back to Sa ────────────────────────────
     // Pa Ma Ga Re  Sa —— (boat gliding back)
     { f: 330, d: 0.14 }, { f: 294, d: 0.14 },
     { f: 277, d: 0.14 }, { f: 247, d: 0.14 },
     { f: 220, d: 0.45 },
-    { f: 0,   d: 0.55 },  // pause before loop
+    { f: 0, d: 0.55 },  // pause before loop
 ];
