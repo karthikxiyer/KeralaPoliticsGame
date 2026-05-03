@@ -272,7 +272,9 @@ function checkPowerups() {
 }
 
 function applyPowerup(fx) {
-  const ef = POWERUP_EFFECTS[fx], now = performance.now();
+  const partyPowerups = PARTY_POWERUPS[S.party];
+  const ef = (partyPowerups && partyPowerups[fx]) || POWERUP_EFFECTS[fx];
+  const now = performance.now();
   const hud = $('hud-powerup'); hud.textContent = ef.hudText; hud.style.color = ef.hudColor;
   hud.classList.remove('hidden');
   if (fx === 'shield') { S.shielded = true; S.shieldUntil = now + ef.duration; }
@@ -406,9 +408,11 @@ function drawPowerups() {
       const icon = p.effect === 'shield' ? '🛡️' : p.effect === 'extralife' ? '💚' : '⏱️';
       ctx.fillText(icon, x + POWERUP_SIZE / 2, y + POWERUP_SIZE / 2)
     }
-    // Generic powerup label with bg
+    // Party-specific powerup label with bg
     ctx.font = 'bold 9px "JetBrains Mono",monospace'; ctx.textAlign = 'center';
-    const lbl = POWERUP_EFFECTS[p.effect].label, lw = ctx.measureText(lbl).width;
+    const partyPowerups = PARTY_POWERUPS[S.party];
+    const powerupCfg = (partyPowerups && partyPowerups[p.effect]) || POWERUP_EFFECTS[p.effect];
+    const lbl = powerupCfg.label, lw = ctx.measureText(lbl).width;
     const lx = x + POWERUP_SIZE / 2, ly = y + POWERUP_SIZE + 10;
     ctx.fillStyle = 'rgba(0,20,22,0.85)';
     ctx.beginPath(); ctx.roundRect(lx - lw / 2 - 3, ly - 6, lw + 6, 12, 3); ctx.fill();

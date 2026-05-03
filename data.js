@@ -236,3 +236,22 @@ const MUSIC_NOTES = [
     { f: 220, d: 0.45 },
     { f: 0, d: 0.55 },  // pause before loop
 ];
+
+// Party-specific powerup configurations
+const PARTY_POWERUPS = {
+    udf: {
+        extralife: { label: 'Anti-Incumbancy Wave', image: 'anti_incumbancy.png', hudText: '📊 WAVE', hudColor: '#00ff88', duration: 0 },
+        slowmo: { label: 'Swamiye SWARNAM Ayyappa', image: 'gold_scam.png', hudText: '⏱️ SACRED', hudColor: '#66ccff', duration: 4000 },
+        shield: { label: 'Social Welfare Promises', image: 'social_welfare.png', hudText: '🛡️ WELFARE', hudColor: '#ffcc00', duration: 3000 }
+    },
+    ldf: {
+        extralife: { label: 'Punarjani Scam', image: 'punarjani.png', hudText: '💉 REVIVAL', hudColor: '#00ff88', duration: 0 },
+        slowmo: { label: 'No Central Funds', image: 'no_central_funds.png', hudText: '⏱️ STARVED', hudColor: '#66ccff', duration: 4000 },
+        shield: { label: 'Rahul Mankootathil Issue', image: 'rahul_issue.png', hudText: '🛡️ CONFUSION', hudColor: '#ffcc00', duration: 3000 }
+    },
+    nda: {
+        extralife: { label: 'Swamiye SWARNAM Ayyappa', image: 'gold_scam.png', hudText: '💚 SACRED', hudColor: '#00ff88', duration: 0 },
+        slowmo: { label: 'Anti-Incumbancy Wave', image: 'anti_incumbancy.png', hudText: '⏱️ WAVE', hudColor: '#66ccff', duration: 4000 },
+        shield: { label: 'Economic Development Promises', image: 'economic_development.png', hudText: '🛡️ GROWTH', hudColor: '#ffcc00', duration: 3000 }
+    }
+};
