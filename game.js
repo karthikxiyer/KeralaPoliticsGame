@@ -62,8 +62,31 @@ const canvas = $('game-canvas'), ctx = canvas.getContext('2d');
 
 // Audio
 const AC = window.AudioContext || window.webkitAudioContext;
-let actx = null, musicTimeout = null;
+let actx = null, musicTimeout = null, bgMusic = null;
 function ensureAudio() { if (!actx) actx = new AC() }
+
+// Background music (Kuttanadan)
+function initBackgroundMusic() {
+  if (!bgMusic) {
+    bgMusic = new Audio('assets/kuttanadan.m4a');
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4;
+  }
+}
+
+function playBackgroundMusic() {
+  if (S.muted) return;
+  initBackgroundMusic();
+  bgMusic.currentTime = 0;
+  bgMusic.play().catch(err => console.log('Audio play failed:', err));
+}
+
+function stopBackgroundMusic() {
+  if (bgMusic) {
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+  }
+}
 function tone(f, d, t = 'square', v = 0.15) {
   if (S.muted || !f) return; try {
     ensureAudio();
@@ -117,32 +140,11 @@ function bassNote(f, d, v = 0.05) {
 let drumInterval = null;
 function startMusic() {
   if (S.muted || S.musicPlaying) return; S.musicPlaying = true;
-  // Boat-race drum: 4 thuds per bar (quarter note = ~0.185 s × 4 beats = 0.74 s per bar)
-  // We fire every ~185 ms (16th-note pulse), with heavier hits on beats 1 & 3
-  let drumBeat = 0;
-  drumInterval = setInterval(() => {
-    if (!S.musicPlaying || S.muted) { clearInterval(drumInterval); drumInterval = null; return; }
-    const b = drumBeat % 8;
-    if (b === 0 || b === 4) drumThud(0.16);           // main beats 1 & 3 (strong)
-    else if (b === 2 || b === 6) drumThud(0.09);      // beats 2 & 4 (medium)
-    else if (b === 1 || b === 5) drumThud(0.04);      // "thi" syncopated 8ths (soft)
-    drumBeat++;
-  }, 185);
-  // Melody + bass harmony
-  let i = 0; function playNext() {
-    if (!S.musicPlaying || S.screen !== 'playing') return;
-    const n = MUSIC_NOTES[i];
-    if (n.f > 0) {
-      tone(n.f, n.d * 0.88, 'square', 0.10);   // melody (slightly louder)
-      bassNote(n.f, n.d);                   // octave-down triangle for body
-    }
-    i = (i + 1) % MUSIC_NOTES.length; musicTimeout = setTimeout(playNext, n.d * 1000);
-  } playNext();
+  playBackgroundMusic();
 }
 function stopMusic() {
   S.musicPlaying = false;
-  if (musicTimeout) clearTimeout(musicTimeout);
-  if (drumInterval) { clearInterval(drumInterval); drumInterval = null; }
+  stopBackgroundMusic();
 }
 
 // Screens
