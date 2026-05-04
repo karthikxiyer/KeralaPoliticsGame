@@ -180,15 +180,7 @@ app.get('/api/stats', async (req, res) => {
   }
 });
 
-// Serve static files
-app.use(express.static('.'));
-
-// SPA fallback - rewrite all unknown routes to index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Health check endpoint (no DB needed)
+// Health check endpoint (no DB needed, must be before static/SPA fallback)
 app.get('/api/health', (req, res) => {
   const status = {
     status: 'ok',
@@ -201,6 +193,14 @@ app.get('/api/health', (req, res) => {
     }
   };
   res.json(status);
+});
+
+// Serve static files
+app.use(express.static('.'));
+
+// SPA fallback - rewrite all unknown routes to index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Start server
