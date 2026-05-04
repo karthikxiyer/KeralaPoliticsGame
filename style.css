@@ -278,6 +278,9 @@ html, body {
 #game-screen {
     background: var(--bg);
     flex-direction: column;
+    touch-action: none;
+    position: relative;
+    overflow: hidden;
 }
 
 #game-canvas {
@@ -286,6 +289,8 @@ html, body {
     display: block;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
+    touch-action: none;
+    -webkit-touch-callout: none;
 }
 
 /* HUD */
@@ -346,7 +351,16 @@ html, body {
     bottom: 0;
     width: 50%;
     z-index: 5;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
     /* Invisible but tappable */
+    background: transparent;
+    touch-action: none;
+}
+
+.tap-zone:active {
+    opacity: 0.1;
 }
 
 #tap-left { left: 0; }

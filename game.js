@@ -195,7 +195,7 @@ function startGame() {
 }
 
 // Input
-let tsX = 0, tsY = 0;
+let tsX = 0, tsY = 0, touchStartTime = 0;
 function moveLane(d) { const n = S.tLane + d; if (n >= 0 && n < LANE_COUNT) { S.tLane = n; playMove() } }
 
 document.addEventListener('keydown', e => {
@@ -204,22 +204,39 @@ document.addEventListener('keydown', e => {
   else if (e.key === 'ArrowRight' || e.key === 'd') { moveLane(1); e.preventDefault() }
 });
 
-// Touch: swipe
-canvas.addEventListener('touchstart', e => {
+// Touch: swipe (full screen, lower threshold for mobile)
+document.addEventListener('touchstart', e => {
   if (S.screen !== 'playing') return;
-  tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault()
-}, { passive: false });
-canvas.addEventListener('touchend', e => {
-  if (S.screen !== 'playing') return;
-  const dx = e.changedTouches[0].clientX - tsX, dy = e.changedTouches[0].clientY - tsY;
-  if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) moveLane(dx > 0 ? 1 : -1);
-  e.preventDefault()
-}, { passive: false });
-canvas.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  tsX = e.touches[0].clientX;
+  tsY = e.touches[0].clientY;
+  touchStartTime = Date.now();
+}, { passive: true });
 
-// Tap zones
+document.addEventListener('touchend', e => {
+  if (S.screen !== 'playing' || e.changedTouches.length === 0) return;
+  const dx = e.changedTouches[0].clientX - tsX;
+  const dy = e.changedTouches[0].clientY - tsY;
+  const distance = Math.abs(dx);
+  const time = Date.now() - touchStartTime;
+
+  // Swipe: 20px+ horizontal, more horizontal than vertical, within 500ms
+  if (distance > 20 && Math.abs(dx) > Math.abs(dy) && time < 500) {
+    moveLane(dx > 0 ? 1 : -1);
+  }
+}, { passive: true });
+
+// Prevent default touch behavior (scrolling)
+document.addEventListener('touchmove', e => {
+  if (S.screen === 'playing') e.preventDefault();
+}, { passive: false });
+
+// Tap zones (fallback for traditional tap)
 $('tap-left').addEventListener('click', () => { if (S.screen === 'playing') moveLane(-1) });
 $('tap-right').addEventListener('click', () => { if (S.screen === 'playing') moveLane(1) });
+
+// Also support touch on tap zones
+$('tap-left').addEventListener('touchend', e => { if (S.screen === 'playing') { moveLane(-1); e.preventDefault() } }, { passive: false });
+$('tap-right').addEventListener('touchend', e => { if (S.screen === 'playing') { moveLane(1); e.preventDefault() } }, { passive: false });
 
 // Spawn
 function spawn(now) {
