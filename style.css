@@ -511,3 +511,101 @@ html, body {
     0%, 100% { box-shadow: 0 0 8px var(--party-color); }
     50% { box-shadow: 0 0 20px var(--party-color); }
 }
+
+/* ===== TUTORIAL ===== */
+.tutorial {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.tutorial.hidden {
+    display: none !important;
+}
+
+.tutorial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.tutorial-box {
+    position: relative;
+    z-index: 1001;
+    background: var(--bg-light);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    animation: slideDown 0.4s ease-out;
+}
+
+.tutorial-title {
+    font-size: 24px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    letter-spacing: 2px;
+}
+
+.tutorial-content {
+    display: flex;
+    gap: 24px;
+    margin: 20px 0 28px 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.tutorial-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.tutorial-arrow {
+    font-size: 48px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.tutorial-section p {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.tutorial-section strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.tutorial-divider {
+    width: 2px;
+    height: 60px;
+    background: var(--accent);
+    opacity: 0.3;
+}
+
+.tutorial-goal {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 20px 0;
+    font-style: italic;
+}
+
+#tutorial-btn {
+    margin-top: 12px;
+}

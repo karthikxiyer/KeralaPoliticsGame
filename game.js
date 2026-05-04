@@ -190,6 +190,11 @@ function startGame() {
   $('hud-party-badge').textContent = pd.symbol + ' ' + pd.name;
   $('hud-party-badge').style.color = pd.color;
   $('hud-powerup').classList.add('hidden');
+  // Show tutorial on first gameplay
+  if (!localStorage.getItem('kk_tutorial_seen')) {
+    $('tutorial').classList.remove('hidden');
+    localStorage.setItem('kk_tutorial_seen', 'true');
+  }
 }
 
 // Input
@@ -528,6 +533,10 @@ $('mute-btn').addEventListener('click', () => {
   S.muted = !S.muted; localStorage.setItem('kk_muted', S.muted.toString());
   $('mute-btn').textContent = S.muted ? '🔇 SOUND OFF' : '🔊 SOUND ON';
   if (S.muted) stopMusic(); else if (S.screen === 'playing') startMusic();
+});
+
+$('tutorial-btn').addEventListener('click', () => {
+  $('tutorial').classList.add('hidden');
 });
 
 window.addEventListener('resize', () => { if (S.screen === 'playing') resize() });
