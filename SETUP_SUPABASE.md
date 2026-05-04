@@ -1,26 +1,34 @@
 # Supabase Setup Guide
 
-This guide will help you set up a free online database on Supabase to track gameplay.
+This guide sets up automatic gameplay tracking with Supabase. The server silently captures all data — no user prompts or permissions needed.
 
-## Step 1: Create Supabase Account
+## What Gets Tracked (Automatically)
 
+- **IP Address** — from server logs
+- **User Agent** — browser/device info
+- **Timestamp** — when game completed
+- **Score & Duration** — gameplay performance (in seconds)
+- **Party Selected** — UDF/LDF/NDA choice
+- **Game Mode** — currently "survival"
+
+## Quick Setup (5 minutes)
+
+### Step 1: Create Supabase Account
 1. Go to [supabase.com](https://supabase.com)
-2. Sign up with GitHub (recommended) or email
-3. Create a new organization
+2. Sign up with GitHub or email
+3. Create new organization
 
-## Step 2: Create a Project
+### Step 2: Create Project
+1. Click **"New Project"**
+2. Name: `kerala-konishtt`
+3. Set a strong database password
+4. Choose region nearest to you
+5. Wait for initialization (~2 min)
 
-1. Click "New project"
-2. Name it: `kerala-konishtt`
-3. Create a strong database password
-4. Choose a region closest to you
-5. Click "Create new project" and wait for it to initialize
-
-## Step 3: Create the Table
-
-1. In the Supabase dashboard, go to **SQL Editor**
-2. Click "New query"
-3. Paste this SQL:
+### Step 3: Create Table
+1. Go to **SQL Editor** 
+2. Click **"New Query"**
+3. Paste this SQL and click **"Run"**:
 
 ```sql
 CREATE TABLE gameplay_sessions (
@@ -35,76 +43,91 @@ CREATE TABLE gameplay_sessions (
 );
 ```
 
-4. Click "Run"
-
-## Step 4: Get Your API Keys
-
+### Step 4: Get API Keys
 1. Go to **Settings** → **API**
-2. Copy your:
-   - Project URL (Supabase URL)
-   - anon/public key (Supabase Key)
+2. Copy these two values:
+   - **Project URL** (under "URL")
+   - **Anon public key** (under "Anon/Public")
+   - ⚠️ **Important**: Copy the FULL key, not truncated
 
-## Step 5: Set Environment Variables
+### Step 5: Configure Render
+1. Go to your Render dashboard → `kerala-konishtt` service
+2. Click **Environment**
+3. Add two new environment variables:
+   - Key: `SUPABASE_URL` → Value: [paste your Project URL]
+   - Key: `SUPABASE_KEY` → Value: [paste your Anon key]
+   - ⚠️ Verify both are pasted in FULL
+4. Click **Save** → **Redeploy**
 
-Create a `.env` file in your project root:
-
-```
-SUPABASE_URL=your_project_url_here
-SUPABASE_KEY=your_anon_key_here
-```
-
-**Important**: Add `.env` to `.gitignore` (already done) so you don't commit secrets!
-
-## Step 6: Deploy on Render
-
-1. Go to your Render dashboard
-2. Click on your `kerala-konishtt` service
-3. Go to **Environment**
-4. Add these environment variables:
-   - `SUPABASE_URL` = your Supabase URL
-   - `SUPABASE_KEY` = your Supabase anon key
-
-5. Redeploy the service
-
-## Step 7: Verify It's Working
-
+### Step 6: Test It Works
 1. Play the game and complete a round
-2. Go to Supabase dashboard → **Table Editor**
-3. Click `gameplay_sessions` - you should see your gameplay data!
+2. Check Supabase dashboard → **Table Editor** → `gameplay_sessions`
+3. You should see a new row with your game data
 
-## View Your Data
+## Verify via API
 
-### In Supabase Dashboard:
-- Go to Table Editor → gameplay_sessions
-- See all gameplay sessions with IP, score, duration, party, timestamp
+Check if data is being tracked:
 
-### Via API:
 ```bash
-curl https://your-render-app.onrender.com/api/stats
+curl https://your-app.onrender.com/api/stats
 ```
 
-## Notes
+Expected response:
+```json
+{
+  "total_plays": 1,
+  "avg_score": "15.42",
+  "best_score": "15.42",
+  "avg_duration": "15.42",
+  "party_breakdown": { "udf": 1 },
+  "source": "supabase"
+}
+```
 
-- **Free tier**: Supabase free tier includes 500MB database, plenty for this
-- **IP Address**: Automatically captured from server (no user prompt)
-- **User Agent**: Browser/device info captured automatically
-- **No prompts**: Zero browser permission requests - silent tracking
-- **Fallback**: If Supabase isn't configured, it uses local SQLite automatically
+## Server Logs
 
-## Tracked Data
+The Render server logs will show tracking activity:
 
-Per gameplay session:
-- Timestamp (when game was played)
-- Player IP address
-- User agent (browser/device info)
-- Score (duration in seconds)
-- Game mode
-- Party selected (UDF/LDF/NDA)
+```
+[TRACK] 2026-01-15T10:30:45.123Z | IP: 192.168.1.1 | Party: udf | Score: 15.42s | Mode: survival
+  ✓ Tracked to Supabase
+```
+
+## Fallback: Local SQLite
+
+If Supabase keys are not set, the server automatically falls back to local SQLite (`gameplay.db`).
+
+**Server logs will show**:
+```
+⚠ Supabase not configured. Using SQLite fallback.
+```
 
 ## Troubleshooting
 
-If tracking doesn't work:
-1. Check Render logs: `render deploy logs`
-2. Make sure `SUPABASE_URL` and `SUPABASE_KEY` are set in Render
-3. Check browser console for errors (F12)
-4. Fallback to local SQLite works automatically if Supabase not configured
+### "No rows returned" from /api/stats?
+1. **Check Render environment**: Go to dashboard → Environment → verify both keys are set (full length)
+2. **Redeploy after setting keys**: Changes need a redeploy to take effect
+3. **Check server logs**: Go to Render → Logs tab, play a game, watch for `[TRACK]` messages
+4. **Verify Supabase credentials**: Go to Supabase → Settings → API, copy keys again (very carefully)
+5. **Key truncation issue**: Some copy-paste tools truncate long strings. Try copying in segments, or use Supabase UI directly
+
+### Connection errors?
+- Check internet connection on deployed app
+- Verify Supabase project is active (not deleted/paused)
+- Ensure IP address range is allowed in Supabase (usually automatic)
+
+### Playing locally?
+1. Create `.env` file in project root:
+```
+SUPABASE_URL=your_url_here
+SUPABASE_KEY=your_key_here
+```
+2. Run `node server.js`
+3. Open `http://localhost:3000`
+
+## Data Privacy
+
+- **No third-party tracking**: Only Supabase, your data stays in your account
+- **No geolocation**: No GPS, no browser prompts
+- **No cookies**: Tracking is silent, server-side only
+- **Raw IP**: Captured from server logs (you can delete anytime)
