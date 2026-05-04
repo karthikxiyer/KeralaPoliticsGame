@@ -464,11 +464,9 @@ function loop(ts) {
     S.lastSpeedUp = now;
   }
 
-  // Effective speed (slowmo + initial 10s grace period)
-  const elapsedSecs = (now - S.startTime) / 1000;
-  const initialSlowModifier = elapsedSecs < 10 ? 0.5 : 1;
+  // Effective speed (slowmo)
   const eff = S.slowmo ? 0.4 : 1;
-  S.roadOff += S.speed * dt * eff * initialSlowModifier;
+  S.roadOff += S.speed * dt * eff;
   if (S.roadOff > STRIPE_H + STRIPE_G) S.roadOff -= STRIPE_H + STRIPE_G;
   S.anim += dt * 0.05;
 
@@ -477,11 +475,11 @@ function loop(ts) {
   if (S.shielded && now > S.shieldUntil) { S.shielded = false; }
   if (S.slowmo && now > S.slowUntil) { S.slowmo = false; }
 
-  // Spawn & move (with initial slowdown)
+  // Spawn & move
   spawn(now);
-  S.obs.forEach(o => { o.y += o.speed * dt * eff * initialSlowModifier });
+  S.obs.forEach(o => { o.y += o.speed * dt * eff });
   S.obs = S.obs.filter(o => o.y < S.cH + 50);
-  S.powerups.forEach(p => { p.y += p.speed * dt * eff * initialSlowModifier });
+  S.powerups.forEach(p => { p.y += p.speed * dt * eff });
   S.powerups = S.powerups.filter(p => p.y < S.cH + 50);
   S.particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.life -= 0.03 });
   S.particles = S.particles.filter(p => p.life > 0);
