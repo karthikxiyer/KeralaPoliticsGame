@@ -198,21 +198,7 @@ function startGame() {
 let tsX = 0, tsY = 0, touchStartTime = 0;
 function moveLane(d) { const n = S.tLane + d; if (n >= 0 && n < LANE_COUNT) { S.tLane = n; playMove() } }
 
-document.addEventListener('keydown', e => {
-  if (S.screen !== 'playing') return;
-  if (e.key === 'ArrowLeft' || e.key === 'a') { moveLane(-1); e.preventDefault() }
-  else if (e.key === 'ArrowRight' || e.key === 'd') { moveLane(1); e.preventDefault() }
-});
-
-// Touch: swipe (full screen, lower threshold for mobile)
-document.addEventListener('touchstart', e => {
-  if (S.screen !== 'playing') return;
-  tsX = e.touches[0].clientX;
-  tsY = e.touches[0].clientY;
-  touchStartTime = Date.now();
-}, { passive: true });
-
-document.addEventListener('touchend', e => {
+function handleSwipe(e) {
   if (S.screen !== 'playing' || e.changedTouches.length === 0) return;
   const dx = e.changedTouches[0].clientX - tsX;
   const dy = e.changedTouches[0].clientY - tsY;
@@ -222,13 +208,36 @@ document.addEventListener('touchend', e => {
   // Swipe: 20px+ horizontal, more horizontal than vertical, within 500ms
   if (distance > 20 && Math.abs(dx) > Math.abs(dy) && time < 500) {
     moveLane(dx > 0 ? 1 : -1);
+    e.preventDefault();
   }
-}, { passive: true });
+}
 
-// Prevent default touch behavior (scrolling)
-document.addEventListener('touchmove', e => {
+document.addEventListener('keydown', e => {
+  if (S.screen !== 'playing') return;
+  if (e.key === 'ArrowLeft' || e.key === 'a') { moveLane(-1); e.preventDefault() }
+  else if (e.key === 'ArrowRight' || e.key === 'd') { moveLane(1); e.preventDefault() }
+});
+
+// Touch: swipe (canvas + document for full coverage)
+const handleTouchStart = (e) => {
+  if (S.screen !== 'playing') return;
+  tsX = e.touches[0].clientX;
+  tsY = e.touches[0].clientY;
+  touchStartTime = Date.now();
+};
+
+const handleTouchMove = (e) => {
   if (S.screen === 'playing') e.preventDefault();
-}, { passive: false });
+};
+
+// Attach to both canvas and document
+canvas.addEventListener('touchstart', handleTouchStart, { passive: true });
+canvas.addEventListener('touchend', handleSwipe, { passive: false });
+canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+document.addEventListener('touchstart', handleTouchStart, { passive: true });
+document.addEventListener('touchend', handleSwipe, { passive: false });
+document.addEventListener('touchmove', handleTouchMove, { passive: false });
 
 // Tap zones (fallback for traditional tap)
 $('tap-left').addEventListener('click', () => { if (S.screen === 'playing') moveLane(-1) });
