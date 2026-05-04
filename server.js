@@ -188,10 +188,28 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+// Health check endpoint (no DB needed)
+app.get('/api/health', (req, res) => {
+  const status = {
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    database: supabase ? 'supabase' : (db ? 'sqlite' : 'none'),
+    supabase_configured: !!supabase,
+    env: {
+      SUPABASE_URL: process.env.SUPABASE_URL ? '✓ set' : '✗ missing',
+      SUPABASE_KEY: process.env.SUPABASE_KEY ? `✓ set (${process.env.SUPABASE_KEY.length} chars)` : '✗ missing'
+    }
+  };
+  res.json(status);
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Kerala Konishtt tracking server running on port ${PORT}`);
+  console.log(`\n🎮 Kerala Konishtt Server Started`);
+  console.log(`📍 Port: ${PORT}`);
+  console.log(`📦 Database: ${supabase ? 'Supabase' : (db ? 'SQLite' : 'NONE')}`);
+  console.log(`\n🔗 Health check: http://localhost:${PORT}/api/health\n`);
 });
 
 process.on('SIGINT', () => {
