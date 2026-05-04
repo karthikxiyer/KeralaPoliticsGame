@@ -190,11 +190,8 @@ function startGame() {
   $('hud-party-badge').textContent = pd.symbol + ' ' + pd.name;
   $('hud-party-badge').style.color = pd.color;
   $('hud-powerup').classList.add('hidden');
-  // Show tutorial on first gameplay
-  if (!localStorage.getItem('kk_tutorial_seen')) {
-    $('tutorial').classList.remove('hidden');
-    localStorage.setItem('kk_tutorial_seen', 'true');
-  }
+  // Show tutorial on every fresh gameplay
+  $('tutorial').classList.remove('hidden');
 }
 
 // Input
@@ -458,9 +455,9 @@ function loop(ts) {
 
   // Difficulty progression (every 10 seconds)
   if (now - S.lastSpeedUp > SPEED_INT) {
-    S.speed = Math.min(MAX_SPEED, S.speed + SPEED_INC);
-    S.spawnInt = Math.max(SPAWN_MIN, S.spawnInt - SPAWN_DEC);
-    S.currentPowerupChance = Math.max(0.01, S.currentPowerupChance - POWERUP_CHANCE_DEC);
+    S.speed += SPEED_INC;
+    S.spawnInt -= SPAWN_DEC;
+    S.currentPowerupChance -= POWERUP_CHANCE_DEC;
     S.lastSpeedUp = now;
   }
 
